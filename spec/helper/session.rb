@@ -1,5 +1,7 @@
   module SessionHelpers
-  
+  	
+  	
+
   def sign_in(email, password)
     visit '/sessions/new'
     save_and_open_page

@@ -1,16 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href='/stylesheets/reset_stylesheet.css' rel='stylesheet'>
+<link href='/stylesheets/stylesheet.css' rel='stylesheet'>
+</head>
 <body>
+<header>
+  <div id="logo">Bookmark Manager</div>
+     
+  
+  <div id="user-links">
 
-  <% if current_user %>
-    Welcome, <%= current_user.email %>
-    <form method="post" action="/sessions">
-      <input type="hidden" name="_method" value="delete">
-      <input type="submit" value="Sign out">
-    </form>
-  <% end %>
+    <% if current_user %>
+      <span id="welcome_message">Welcome, <%= current_user.email %> </span>
+      <form id='sing-out' method="post" action="/sessions">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" value="Sign out">
+      </form>
+    
+    <% else%> 
+        <% if request.path_info =='/users/new' %>
+   <a href='/users/new'> <button name='sing_up' >Sign Up</button></a>
+        <% elsif request.path_info =='/sessions/new' %>
+   <a href='/sessions/new'> <button name='sing_up' >Sign Up</button></a>
+        <% else %>
+        <a href='/users/new'> <button name='sing_up' >Sign Up</button></a>
+         <a href='/sessions/new'> <button name='sing_in' >Sign In</button></a>
 
-  <% if current_user %>
-    Welcome, <%= current_user.email %>
-  <% end %>
+   
+      <% end %>
+  
+  
+
+    <% end %>
+  
+
+  </div> <!--end of bookmark manager-->
+
+</header>
+ <h1>Welcome to the bookmark manager</h1>
 
  <% if flash[:errors] && !flash[:errors].empty? %>
   Sorry, there were the following problems with the form. 
@@ -26,6 +54,10 @@
       <%= flash[:notice] %>
     </div>
   <% end %>
-  
+
   <%= yield %>
 </body>
+
+
+
+</html>
