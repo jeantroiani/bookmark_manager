@@ -1,5 +1,6 @@
 body{
 	background-color: #f8b5cb;
+	position: relative;
 }
 
 header{
@@ -8,5 +9,55 @@ header{
 	background-color: black;
 	font-size: 30px;
 	padding: 10px;
+	margin-bottom: 10px;
+}
+#logo {
+	display: inline-block;
+	width:300px;
+	float: left;
+
 }
 
+
+
+ 
+button {
+   display: inline-block; /* display inline but have dimensions */
+   width: 80px;
+   background-color: #ed588d;
+   border: 2px solid white;
+   color: white; /*text colour*/
+   text-decoration: none; /*no underlining*/
+   padding: 5px 10px;
+   text-align: center;
+   border-radius: 4px; /*rounded corners*/
+   margin-left: 5px;
+   margin-right: 5px;
+   text-shadow: 0 0 2px rgba(0,0,0, 0.4); /*for readability*/
+  	float: right;
+
+ }
+
+ .clearfix:after { 
+   content: "."; 
+   visibility: hidden; 
+   display: block; 
+   height: 0; 
+   clear: both;
+}
+
+#links-container{
+
+	border: solid 2px #ffbbc1;
+	background-color: #ed588d;
+	width: 600px;
+	margin: 0px auto;
+	border-radius: 4px;
+}
+
+#links{
+	height: 60px;
+	margin: 10px 10px;
+	border-radius: 4px;
+	background-color: #fef8e5;
+}

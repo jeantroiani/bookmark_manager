@@ -18,6 +18,10 @@ class Bookmark < Sinatra::Base
 		@links = Link.all
   	erb :index
 end
+  
+  get'/links/new' do
+  erb :"links/new"
+end
 
 post '/links' do
   tags = params["tags"].split(" ").map do |tag|

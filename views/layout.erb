@@ -5,8 +5,8 @@
 <link href='/stylesheets/stylesheet.css' rel='stylesheet'>
 </head>
 <body>
-<header>
-  <div id="logo">Bookmark Manager</div>
+<header class="clearfix">
+  <div  id="logo">Bookmark Manager</div>
      
   
   <div id="user-links">
@@ -34,11 +34,14 @@
 
     <% end %>
   
+  <% unless request.path_info =='/links/new' %> 
+  <a href='/links/new'> <button name='add_link' >Add Link</button></a>
+<% end %>
 
   </div> <!--end of bookmark manager-->
 
 </header>
- <h1>Welcome to the bookmark manager</h1>
+ <h1 id="welcome_to">Welcome to the bookmark manager</h1>
 
  <% if flash[:errors] && !flash[:errors].empty? %>
   Sorry, there were the following problems with the form. 
