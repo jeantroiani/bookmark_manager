@@ -5,8 +5,10 @@ require './lib/link'
 require './lib/tag'
 require './lib/user'
 require './app/data_mapper_setup'
+require 'rest-client'
 
-# DataMapper.auto_upgrade!
+DataMapper.auto_migrate!
+
 
 class Bookmark < Sinatra::Base	
 	enable :sessions
@@ -88,8 +90,45 @@ delete '/sessions' do
   redirect to('/')
 end
 
+get '/recover_password' do
+  erb :recover_password
+end
+
+post '/recover_password' do
+  user=User.first(:email=>params[:email])
+  user.update_tokens
+  send_simple_message(user)
+  erb :update_password
+end
+
+def send_simple_message(user)
+  RestClient.post "https://api:key-343493e3b4c83d0c3652b450171f6790"\
+  "@api.mailgun.net/v2/sandbox083b2c50cc6a4e18bbd5173da7de219d.mailgun.org/messages",
+  :from => "Mailgun Sandbox <postmaster@sandbox083b2c50cc6a4e18bbd5173da7de219d.mailgun.org>",
+  :to => user.email,
+  :subject => "Recover Password",
+  :text => "http://localhost/9393/update_password/#{user.password_token}"
+end
+
+get'/update_password/:token' do
+  @token=params[:token]
+  erb :update_password
+end
+
+post '/update_password/' do
+  user=User.first(:password_token => params[:token])
+  password= params[:password]
+  password_confirmation=params[:password_confirmation]
+  user.update(:password => password,:password_confirmation=>password_confirmation, :password_token=> nil)
+  erb :update_password
+end
 
 
 
 end
+
+
+
+
+
 

@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'helper/session'
 
+
 include SessionHelpers
 
 feature "User signs up" do
@@ -68,8 +69,9 @@ feature "User signs up" do
 
 
 
-end
+  end
 
+end
 feature 'User signs out' do
 
   before(:each) do
@@ -81,12 +83,33 @@ feature 'User signs out' do
   scenario 'while being signed in' do
     sign_in('test@test.com', 'test')
     click_button "Sign out"
-    save_and_open_page
     expect(page).to have_content("Good bye!") # where does this message go?
     expect(page).not_to have_content("Welcome, test@test.com")
   end
-
 end
 
+
+feature 'user lost his password' do
+  
+  before(:each) do
+  User.create(:email => "digitalguest@gmail.com", 
+              :password => 'test', 
+              :password_confirmation => 'test'
+              )
+  end
+
+    scenario 'while not signed in' do
+      sign_in('digitalguest@gmail.com', 'wrong')
+      click_link("Forgot password")
+      expect(page).to have_content "Please type your email"
+      fill_in :email, :with => "digitalguest@gmail.com"
+      click_button("Submit")
+      expect(page).to have_content "Please type your new password"
+      fill_in :password, :with => 'test' 
+      fill_in :password_confirmation, :with => 'test'
+      click_button "Update"
+    end
+
+  
 
 end

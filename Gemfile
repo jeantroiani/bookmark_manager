@@ -7,6 +7,7 @@ gem 'database_cleaner'
 gem 'capybara'
 gem 'bcrypt-ruby'
 gem 'rack-flash3'
+gem 'rest-client'
 
 group :development, :test do
   gem "rspec"
